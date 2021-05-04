@@ -2,43 +2,42 @@ require 'rubygems'
 require 'ap' 
 require 'pry' 
 
+#add functions 
+
 class Editor 
-    def initialize 
+    
+    def initialize(debug = false) 
         @buffer = ''
         @clipboard = []
-        @debug = true 
+        @debug = debug  
     end 
+    
+    def perform(operation , *operands) 
+        @debug ? debug(operation, *operands) : nil 
 
-    def perform( function , *arguments ) 
- 
-        if @debug == true 
-            puts "Operation: #{function}"
-            puts "Operands: #{arguments}"
-        end
-
-        case function 
+        case operation 
         when :insert
-            string = arguments[0]
-            index = arguments[1]
+            string = operands[0]
+            index = operands[1]
             insert(string, index)
         when :cut
-            size = arguments[0]
-            index = arguments[1]
+            size = operands[0]
+            index = operands[1]
             cut(size, index)
         when :duplicate
-            size = arguments[0]
-            from_index = arguments[1]
-            target_index = arguments[2]
+            size = operands[0]
+            from_index = operands[1]
+            target_index = operands[2]
             duplicate(size, from_index, target_index)
         when :paste
-            index = arguments[0]
+            index = operands[0]
             paste(index)
         else 
-            "Please insert a function name."
+            "Please insert a operation name."
         end 
 
-        @debug ? puts("Buffer: #{@buffer}") : nil
-       
+        puts("Buffer: #{@buffer}")  
+
     end 
 
     def insert(string, index)
@@ -51,19 +50,22 @@ class Editor
 
     def duplicate(size, from_index, target_index)
         @string = @buffer.slice(from_index, size)
-        @clipboard << @string
+        @clipboard <<  @string 
         @buffer.insert(target_index, @string)
     end 
 
     def paste(index)
-       @buffer.insert(index, @clipboard.pop()) 
+       @buffer.insert(index, @clipboard.pop) 
     end 
+
+    def debug(operation, *operands)
+        puts "Operation: #{operation}"
+        puts "Operands: #{operands}"
+    end
 
 end 
 
-editor = Editor.new() 
-
-
+editor = Editor.new
 
 editor.perform(:insert, 'if you would make the right choices', 0)
 editor.perform(:insert, 'an exception to it, ', 0)
@@ -93,3 +95,5 @@ editor.perform(:duplicate, 1, 13, -3)
 editor.perform(:cut, 15, 27)
 editor.perform(:cut, 2, 34)
 editor.perform(:cut, 3, 16)
+
+
