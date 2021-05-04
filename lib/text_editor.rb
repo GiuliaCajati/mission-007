@@ -1,5 +1,7 @@
 ##
-# This class represents a simple text editor. The editor performs a number of operations, filtered through the perform function. The class support a debug mode, which prints the operator and the operands (prior to each operation), and prints the buffer (after each operation).
+# This class represents a simple text editor, which editor performs a number of operations.
+# Operations are filtered through the perform function. 
+# The class support a debug mode, which prints the operator and the operands (prior to each operation), and prints the buffer (after each operation).
 class TextEditor 
   attr_accessor :buffer, :clipboard, :debug, :end_of_program_text
     
