@@ -2,8 +2,6 @@ require 'rubygems'
 require 'ap' 
 require 'pry' 
 
-#add functions 
-
 class Editor 
     
     def initialize(debug = false) 
@@ -11,33 +9,11 @@ class Editor
         @clipboard = []
         @debug = debug  
     end 
-    
+
     def perform(operation , *operands) 
         @debug ? debug(operation, *operands) : nil 
-
-        case operation 
-        when :insert
-            string = operands[0]
-            index = operands[1]
-            insert(string, index)
-        when :cut
-            size = operands[0]
-            index = operands[1]
-            cut(size, index)
-        when :duplicate
-            size = operands[0]
-            from_index = operands[1]
-            target_index = operands[2]
-            duplicate(size, from_index, target_index)
-        when :paste
-            index = operands[0]
-            paste(index)
-        else 
-            "Please insert a operation name."
-        end 
-
+        self.method(operation).call(*operands)
         puts("Buffer: #{@buffer}")  
-
     end 
 
     def insert(string, index)
@@ -55,7 +31,7 @@ class Editor
     end 
 
     def paste(index)
-       @buffer.insert(index, @clipboard.pop) 
+        @buffer.insert(index, @clipboard.pop) 
     end 
 
     def debug(operation, *operands)
@@ -65,8 +41,7 @@ class Editor
 
 end 
 
-editor = Editor.new
-
+editor = Editor.new(true)
 editor.perform(:insert, 'if you would make the right choices', 0)
 editor.perform(:insert, 'an exception to it, ', 0)
 editor.perform(:insert, 'You might be ', 0)
