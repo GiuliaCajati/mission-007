@@ -1,5 +1,4 @@
 require './lib/text_editor.rb'
-require 'pry'
 
 RSpec.describe TextEditor do
 
