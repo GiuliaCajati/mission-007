@@ -1,4 +1,7 @@
+##
+# This class represents a simple text editor. The editor performs a number of operations, filtered through the perform function. The class support a debug mode, which prints the operator and the operands (prior to each operation), and prints the buffer (after each operation).
 class TextEditor 
+  attr_accessor :buffer, :clipboard, :debug, :end_of_program_text
     
   def initialize(debug = false)
     @buffer = ''
@@ -10,17 +13,17 @@ class TextEditor
   def perform(operation , *operands) 
     debug(operation, *operands) if @debug
     if !self.methods.include?(operation)
-      p '>>> | Invalid function name.' 
+      p 'Invalid function name.' 
     else 
       self.method(operation).call(*operands) 
-      puts ">>> | Buffer: #{@buffer}"  if @debug 
-      puts ">>> | Buffer: #{@buffer}" if @end_of_program_text == @buffer 
+      puts "Buffer: #{@buffer}"  if @debug 
+      puts "Buffer: #{@buffer}" if @end_of_program_text == @buffer 
     end
   end 
 
   def debug(operation, *operands)
-    puts "<<< | Operation: #{operation}"
-    puts "<<< | Operands: #{operands}"
+    puts "Operation: #{operation}"
+    puts "Operands: #{operands}"
   end
 
   def insert(string, index)
@@ -42,46 +45,4 @@ class TextEditor
   end 
 
 end 
-
-
-editor = TextEditor.new
-
-# editor.perform(:foo)
-# editor.perform(:insert, 'if you would make the right choices', 0)
-# editor.perform(:insert, 'an exception to it, ', 0)
-# editor.perform(:insert, 'You might be ', 0)
-# editor.perform(:cut, 5, 41)
-# editor.perform(:insert, 'os', 61)
-# editor.perform(:cut, 4, 25)
-# editor.perform(:insert, ' ac', -1)
-# editor.perform(:cut, 4, 18)
-# editor.perform(:duplicate, 1, 54, 6)
-# editor.perform(:paste, 6)
-# editor.perform(:cut, 3, 20)
-# editor.perform(:paste, 8)
-# editor.perform(:paste, -1)
-# editor.perform(:cut, 2, 23)
-# editor.perform(:insert, 'sh', 25)
-# editor.perform(:paste, -1)
-# editor.perform(:paste, 60)
-# editor.perform(:cut, 1, 44)
-# editor.perform(:cut, 1, 23)
-# editor.perform(:paste, 11)
-# editor.perform(:paste, 3)
-# editor.perform(:paste, 31)
-# editor.perform(:cut, 2, 58)
-# editor.perform(:cut, 12, 13)
-# editor.perform(:duplicate, 1, 13, -3)
-# editor.perform(:cut, 15, 27)
-# editor.perform(:cut, 2, 34)
-# editor.perform(:cut, 3, 16)
-
-
-  # def start_game_program
-  #     @game_program ? @buffer = "You missionght be an ex, shif you wmake the right choicoses accept" : @buffer = nil
-  #     puts("Buffer: #{@buffer}")
-  #     puts '1. cut, number_of_letters, index'
-  #     puts '2. duplicate, number_of_letters, first_index, last_index'
-  #     puts '3. paste, index'
-  # end 
 
