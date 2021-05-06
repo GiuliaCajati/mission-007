@@ -18,13 +18,12 @@ class TextEditor
     debug_mode(operation, *operands) do 
       send(operation, *operands)
     end
- 
   end 
 
   def debug_mode(operation, *operands)
-    print_operation_and_operands(operation, *operands)
+    print_operation_and_operands(operation, *operands) if @debug
     send(operation, *operands)
-    print_buffer 
+    print_buffer if @debug
   end
 
   def print_operation_and_operands(operation, *operands)
@@ -51,8 +50,6 @@ class TextEditor
   def invalid_operation(operation)
     p 'Invalid function name.' if !check_methods(operation) || check_attributes(operation) 
   end 
-
-  
 
   def insert(string, index)
     @buffer.insert(index, string)
