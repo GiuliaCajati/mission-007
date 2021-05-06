@@ -13,19 +13,28 @@ class TextEditor
   end 
 
   def perform(operation , *operands) 
-    print_operation_and_operands(operation, *operands) if @debug
-    
     return if invalid_operation(operation)
-
-    send(operation, *operands)
-    print_buffer if @debug 
+ 
+    debug_mode(operation, *operands) do 
+      send(operation, *operands)
+    end
+ 
   end 
+
+  def debug_mode(operation, *operands)
+    print_operation_and_operands(operation, *operands)
+    send(operation, *operands)
+    print_buffer 
+  end
 
   def print_operation_and_operands(operation, *operands)
     puts "Operation: #{operation}"
     puts "Operands: #{operands}"
   end
 
+  def print_buffer
+    puts "Buffer: #{@buffer}"
+  end
 
   # Check if operation input is an instance method  
   def check_methods(operation)
@@ -43,9 +52,7 @@ class TextEditor
     p 'Invalid function name.' if !check_methods(operation) || check_attributes(operation) 
   end 
 
-  def print_buffer
-    puts "Buffer: #{@buffer}"
-  end
+  
 
   def insert(string, index)
     @buffer.insert(index, string)
