@@ -1,6 +1,5 @@
 require_relative './lib/text_editor.rb'
 
-
 def run_application
   puts 'Would you like to set program to debug mode?'
   puts 'Enter Yes or No'

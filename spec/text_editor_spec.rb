@@ -61,6 +61,7 @@ RSpec.describe TextEditor do
         end
         it 'adds the copied characters to the end of the clipboard' do
           @editor.buffer = 'Red Light!'
+          @editor.clipboard = ['Make', 'It', 'Count']
           @editor.perform(:duplicate, 5, 4, 2)
           expect(@editor.clipboard).to eq(['Make', 'It', 'Count', 'Light'])
           @editor.perform(:duplicate, 1, 4, 2)

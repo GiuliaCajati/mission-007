@@ -1,4 +1,3 @@
-require 'pry'
 ##
 # This class represents a simple text editor, which performs a number of operations.
 # Operations are filtered through the perform function. 
