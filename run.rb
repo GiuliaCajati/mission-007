@@ -1,15 +1,17 @@
 require_relative './lib/text_editor.rb'
 
+
 def run_application
   puts 'Would you like to set program to debug mode?'
   puts 'Enter Yes or No'
-  debug = gets.chomp
-  debug === 'Yes'? debug = true : debug = false
+  response = gets.chomp.upcase
+  debug = true if response == 'YES'
   editor = TextEditor.new(debug)
-  run_code(editor)
+  run_code(editor, debug)
 end 
 
-def run_code(editor)
+def run_code(editor, debug)
+  editor.perform(:foo, 5, 41)
   editor.perform(:insert, 'if you would make the right choices', 0)
   editor.perform(:insert, 'an exception to it, ', 0)
   editor.perform(:insert, 'You might be ', 0)
@@ -38,6 +40,7 @@ def run_code(editor)
   editor.perform(:cut, 15, 27)
   editor.perform(:cut, 2, 34)
   editor.perform(:cut, 3, 16)
+  editor.perform(:print_buffer) if !debug
 end 
 
 run_application
