@@ -1,4 +1,3 @@
-require 'pry'
 ##
 # This class represents a simple text editor, which editor performs a number of operations.
 # Operations are filtered through the perform function. 
@@ -14,7 +13,7 @@ class TextEditor
 
   def perform(operation , *operands) 
     return if invalid_operation(operation)
- 
+
     debug_mode(operation, *operands) do 
       send(operation, *operands)
     end
@@ -37,8 +36,7 @@ class TextEditor
 
   # Check if operation input is an instance method  
   def check_methods(operation)
-    methods_and_attribues = TextEditor.instance_methods(false)
-    methods_and_attribues.include?(operation)
+    TextEditor.instance_methods(false).include?(operation)
   end 
 
   # Check if operation input is an instance attribute 

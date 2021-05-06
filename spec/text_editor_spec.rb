@@ -45,7 +45,6 @@ RSpec.describe TextEditor do
         end
       end
     
-
       context 'given the duplicate operation,' do
         it 'adds the buffer at the given index' do
           @editor.buffer = 'Light The Fuse '
