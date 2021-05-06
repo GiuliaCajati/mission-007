@@ -5,7 +5,7 @@ def run_application
   puts 'Would you like to set program to debug mode?'
   puts 'Enter Yes or No'
   response = gets.chomp.upcase
-  debug = true if response == 'YES'
+  debug = response == 'YES'
   editor = TextEditor.new(debug)
   run_code(editor, debug)
 end 
